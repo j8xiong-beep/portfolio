@@ -1,3 +1,39 @@
 body {
-    font: 100%/1.5 system-ui;
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+    background-color: #f7f3ef;
+    color: #2f2f2f;
+}
+
+nav {
+    margin-bottom: 40px;
+}
+
+nav a {
+    margin-right: 25px;
+    text-decoration: none;
+    color: #6b4f3b;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+img {
+    width: 380px;
+    border-radius: 12px;
+    margin-top: 10px;
 }
