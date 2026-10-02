@@ -91,3 +91,40 @@ img {
 .project a:hover {
     text-decoration: underline;
 }
+
+section {
+    margin-bottom: 45px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #d6cec5;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+section p {
+    max-width: 760px;
+}
+
+ul {
+    padding-left: 22px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+article {
+    padding: 18px 0;
+    border-bottom: 1px solid #e2ddd7;
+}
+
+article:last-child {
+    border-bottom: none;
+}
