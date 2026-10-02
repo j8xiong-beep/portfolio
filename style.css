@@ -37,3 +37,31 @@ img {
     border-radius: 12px;
     margin-top: 10px;
 }
+
+.project {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    padding: 25px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.project h2 {
+    font-size: 28px;
+    margin-top: 0;
+}
+
+.project p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.project a {
+    color: #6b4f3b;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.project a:hover {
+    text-decoration: underline;
+}
