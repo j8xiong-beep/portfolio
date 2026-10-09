@@ -43,21 +43,21 @@ button {
     font: inherit;
 }
 
-form label,
-form input,
-form textarea,
-form button {
+label,
+input,
+textarea,
+button {
     display: block;
 }
 
-form input,
-form textarea,
-form button {
+input,
+textarea,
+button {
     width: 100%;
     box-sizing: border-box;
 }
 
-form label {
+label {
     margin-block: 1em;
 }
 
