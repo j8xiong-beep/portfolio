@@ -1,5 +1,5 @@
 :root {
-    --color-accent: #8f6a5a;
+    --color-accent: #90776d;
 }
 
 body {
@@ -35,6 +35,30 @@ nav a.current {
     border-bottom: 0.4em solid #b8b8b8;
     padding-bottom: 0.1em;
     background-color: #f3ebe7;
+}
+
+input,
+textarea,
+button {
+    font: inherit;
+}
+
+form label,
+form input,
+form textarea,
+form button {
+    display: block;
+}
+
+form input,
+form textarea,
+form button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form label {
+    margin-block: 1em;
 }
 
 h1 {
@@ -144,4 +168,3 @@ article {
 article:last-child {
     border-bottom: none;
 }
-
