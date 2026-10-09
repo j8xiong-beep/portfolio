@@ -43,22 +43,20 @@ button {
     font: inherit;
 }
 
-label,
-input,
-textarea,
-button {
-    display: block;
-}
-
-input,
-textarea,
-button {
-    width: 100%;
-    box-sizing: border-box;
+form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em;
 }
 
 label {
-    margin-block: 1em;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+}
+
+button {
+    grid-column: 1 / -1;
 }
 
 h1 {
