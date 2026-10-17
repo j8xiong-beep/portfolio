@@ -41,7 +41,8 @@ nav a.current {
 
 input,
 textarea,
-button {
+button,
+select {
     font: inherit;
 }
 
