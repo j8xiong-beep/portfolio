@@ -96,3 +96,23 @@ form?.addEventListener("submit", function (event) {
 
     location.href = url;
 });
+
+
+export async function fetchJSON(url) {
+    try {
+        // Fetch the JSON file
+        const response = await fetch(url);
+
+        // Check if the request was successful
+        if (!response.ok) {
+            throw new Error(`Failed to fetch projects: ${response.statusText}`);
+        }
+
+        // Parse the JSON data
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error('Error fetching or parsing JSON data:', error);
+    }
+}
