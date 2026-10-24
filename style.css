@@ -210,3 +210,22 @@ h6 {
     align-items: center;
     gap: 0.5em;
 }
+
+
+#profile-stats dl {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5em 1em;
+}
+
+#profile-stats dt {
+    grid-row: 1;
+    font-size: 0.8em;
+    color: gray;
+}
+
+#profile-stats dd {
+    grid-row: 2;
+    margin: 0;
+    font-size: 1.8em;
+}
