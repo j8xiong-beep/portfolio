@@ -1,4 +1,4 @@
-import { fetchJSON, renderProjects } from '../global.js';
+import { fetchJSON, renderProjects } from '../global.js?v=2';
 
 const projects = await fetchJSON('../lib/projects.json');
 
