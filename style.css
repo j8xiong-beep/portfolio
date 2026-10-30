@@ -313,3 +313,25 @@ h6 {
     background: canvas;
     color: canvastext;
 }
+
+
+#projects-pie-plot path {
+    cursor: pointer;
+    transition: opacity 300ms, fill 300ms;
+}
+
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+    opacity: 0.5;
+}
+
+#projects-pie-plot path.selected {
+    fill: #e6007e;
+}
+
+.legend li.selected {
+    --color: #e6007e !important;
+}
+
+.legend li.selected {
+    font-weight: bold;
+}

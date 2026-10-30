@@ -10,9 +10,21 @@ const searchInput = document.querySelector('.searchBar');
 projectsTitle.textContent = `${projects.length} Projects`;
 
 let query = '';
+let selectedIndex = -1;
 
 let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 let colors = d3.scaleOrdinal(d3.schemeTableau10);
+
+let svg = d3.select('#projects-pie-plot');
+let legend = d3.select('.legend');
+
+function updateSelection() {
+    svg.selectAll('path')
+        .classed('selected', (_, idx) => idx === selectedIndex);
+
+    legend.selectAll('li')
+        .classed('selected', (_, idx) => idx === selectedIndex);
+}
 
 function renderPieChart(projectsGiven) {
     let rolledData = d3.rollups(
@@ -29,17 +41,20 @@ function renderPieChart(projectsGiven) {
     let arcData = sliceGenerator(data);
     let arcs = arcData.map((d) => arcGenerator(d));
 
-    let svg = d3.select('#projects-pie-plot');
+    selectedIndex = -1;
+
     svg.selectAll('path').remove();
+    legend.selectAll('li').remove();
 
     arcs.forEach((arc, idx) => {
         svg.append('path')
             .attr('d', arc)
-            .attr('fill', colors(idx));
+            .attr('fill', colors(idx))
+            .on('click', () => {
+                selectedIndex = selectedIndex === idx ? -1 : idx;
+                updateSelection();
+            });
     });
-
-    let legend = d3.select('.legend');
-    legend.selectAll('li').remove();
 
     data.forEach((d, idx) => {
         legend.append('li')
@@ -52,7 +67,7 @@ function renderPieChart(projectsGiven) {
 renderProjects(projects, projectsContainer, 'h2');
 renderPieChart(projects);
 
-searchInput.addEventListener('change', (event) => {
+searchInput.addEventListener('input', (event) => {
     query = event.target.value;
 
     let filteredProjects = projects.filter((project) => {
@@ -63,4 +78,3 @@ searchInput.addEventListener('change', (event) => {
     renderProjects(filteredProjects, projectsContainer, 'h2');
     renderPieChart(filteredProjects);
 });
-
