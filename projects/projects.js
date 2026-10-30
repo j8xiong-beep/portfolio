@@ -24,7 +24,3 @@ d3.select('#projects-pie-plot')
     .attr('d', arc)
     .attr('fill', 'red');
 
-d3.select('#projects-pie-plot')
-    .append('path')
-    .attr('d', arc)
-    .attr('fill', 'red');
