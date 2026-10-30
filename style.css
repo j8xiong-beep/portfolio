@@ -269,3 +269,33 @@ h6 {
     border-radius: 50%;
     flex-shrink: 0;
 }
+
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.container #projects-pie-plot {
+    flex: 0 1 20em;
+    min-width: 0;
+    margin-block: 2em;
+}
+
+.container .legend {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .container #projects-pie-plot {
+        width: 100%;
+        align-self: center;
+    }
+}
