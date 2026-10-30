@@ -2,6 +2,7 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 import { fetchJSON, renderProjects } from '../global.js?v=2';
 
 const projects = await fetchJSON('../lib/projects.json');
+let query = '';
 
 const projectsContainer = document.querySelector('.projects');
 
