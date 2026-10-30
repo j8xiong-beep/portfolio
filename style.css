@@ -299,3 +299,17 @@ h6 {
         align-self: center;
     }
 }
+
+.searchBar {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.7em 1em;
+    margin: 1em 0;
+    font: inherit;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: canvas;
+    color: canvastext;
+}
