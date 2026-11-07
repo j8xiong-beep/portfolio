@@ -122,6 +122,11 @@ function renderCommitInfo(data, commits) {
     lines.textContent = commit.totalLines;
   }
   
+function updateTooltipVisibility(isVisible) {
+  const tooltip = document.getElementById('commit-tooltip');
+  tooltip.hidden = !isVisible;
+}
+
   function renderScatterPlot(data, commits) {
     // Chart dimensions
     const width = 1000;
@@ -219,12 +224,13 @@ gridlines.call(
       .attr('cy', d => yScale(d.hourFrac))
       .attr('r', 5)
       .attr('fill', 'steelblue')
-      .on('mouseenter', (event, commit) => {
-        renderTooltipContent(commit);
+    .on('mouseenter', (event, commit) => {
+      renderTooltipContent(commit);
+      updateTooltipVisibility(true);
     })
     .on('mouseleave', () => {
-  // Step 3.1: Tooltip remains visible for now.
-});
+      updateTooltipVisibility(false);
+    });
 
   }  
 
