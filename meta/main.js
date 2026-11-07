@@ -97,11 +97,53 @@ function renderCommitInfo(data, commits) {
     dl.append('dd')
       .text(maxFileLength);
   }
-  
-  let data = await loadData();
-  let commits = processCommits(data);
-  
-  renderCommitInfo(data, commits);
-  
-  console.log(commits);
-  
+
+function renderScatterPlot(data, commits) {
+  // Set chart dimensions
+  const width = 1000;
+  const height = 600;
+
+  // Create SVG
+  const svg = d3
+    .select('#chart')
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .style('overflow', 'visible');
+
+  // X scale: commit dates
+  const xScale = d3
+    .scaleTime()
+    .domain(d3.extent(commits, d => d.datetime))
+    .range([0, width])
+    .nice();
+
+  // Y scale: time of day
+  const yScale = d3
+    .scaleLinear()
+    .domain([0, 24])
+    .range([height, 0]);
+
+  // Create a group for dots
+  const dots = svg
+    .append('g')
+    .attr('class', 'dots');
+
+  // Draw one circle per commit
+  dots
+    .selectAll('circle')
+    .data(commits)
+    .join('circle')
+    .attr('cx', d => xScale(d.datetime))
+    .attr('cy', d => yScale(d.hourFrac))
+    .attr('r', 5)
+    .attr('fill', 'steelblue');
+}
+
+let data = await loadData();
+let commits = processCommits(data);
+
+renderCommitInfo(data, commits);
+renderScatterPlot(data, commits);
+
+console.log(commits);
+

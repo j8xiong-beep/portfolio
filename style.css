@@ -372,4 +372,20 @@ h6 {
       margin-bottom: 1rem;
     }
   }
+
+
+#chart {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  #chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  #chart circle {
+    fill: steelblue;
+  }
   
