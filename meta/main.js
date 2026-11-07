@@ -169,7 +169,7 @@ function renderCommitInfo(data, commits) {
     // Create axes
     const xAxis = d3
       .axisBottom(xScale)
-      .ticks(d3.timeDay.every(3))
+      .ticks(d3.timeDay.every(4))
       .tickFormat(d3.timeFormat('%a %d'));
   
     const yAxis = d3
