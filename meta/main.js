@@ -98,46 +98,92 @@ function renderCommitInfo(data, commits) {
       .text(maxFileLength);
   }
 
-function renderScatterPlot(data, commits) {
-  // Set chart dimensions
-  const width = 1000;
-  const height = 600;
 
-  // Create SVG
-  const svg = d3
-    .select('#chart')
-    .append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`)
-    .style('overflow', 'visible');
-
-  // X scale: commit dates
-  const xScale = d3
-    .scaleTime()
-    .domain(d3.extent(commits, d => d.datetime))
-    .range([0, width])
-    .nice();
-
-  // Y scale: time of day
-  const yScale = d3
-    .scaleLinear()
-    .domain([0, 24])
-    .range([height, 0]);
-
-  // Create a group for dots
-  const dots = svg
-    .append('g')
-    .attr('class', 'dots');
-
-  // Draw one circle per commit
-  dots
-    .selectAll('circle')
-    .data(commits)
-    .join('circle')
-    .attr('cx', d => xScale(d.datetime))
-    .attr('cy', d => yScale(d.hourFrac))
-    .attr('r', 5)
-    .attr('fill', 'steelblue');
-}
+  function renderScatterPlot(data, commits) {
+    // Chart dimensions
+    const width = 1000;
+    const height = 600;
+  
+    // Step 2.2: Margins
+    const margin = {
+      top: 10,
+      right: 10,
+      bottom: 30,
+      left: 20
+    };
+  
+    const usableArea = {
+      top: margin.top,
+      right: width - margin.right,
+      bottom: height - margin.bottom,
+      left: margin.left,
+      width: width - margin.left - margin.right,
+      height: height - margin.top - margin.bottom
+    };
+  
+    // Create SVG
+    const svg = d3
+      .select('#chart')
+      .selectAll('svg')
+      .data([null])
+      .join('svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('overflow', 'visible');
+  
+    // X scale: commit dates
+    const xScale = d3
+      .scaleTime()
+      .domain(d3.extent(commits, d => d.datetime))
+      .range([usableArea.left, usableArea.right])
+      .nice();
+  
+    // Y scale: time of day
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, 24])
+      .range([usableArea.top, usableArea.bottom]);
+  
+    // Create axes
+    const xAxis = d3
+      .axisBottom(xScale)
+      .ticks(d3.timeDay.every(2))
+      .tickFormat(d3.timeFormat('%a %d'));
+  
+    const yAxis = d3
+      .axisLeft(yScale)
+      .tickFormat(
+        d => String(d % 24).padStart(2, '0') + ':00'
+      );
+  
+    // Add X axis
+    svg
+      .append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0, ${usableArea.bottom})`)
+      .call(xAxis);
+  
+    // Add Y axis
+    svg
+      .append('g')
+      .attr('class', 'y-axis')
+      .attr('transform', `translate(${usableArea.left}, 0)`)
+      .call(yAxis);
+  
+    // Create dots group
+    const dots = svg
+      .append('g')
+      .attr('class', 'dots');
+  
+    // Draw circles for commits
+    dots
+      .selectAll('circle')
+      .data(commits)
+      .join('circle')
+      .attr('cx', d => xScale(d.datetime))
+      .attr('cy', d => yScale(d.hourFrac))
+      .attr('r', 5)
+      .attr('fill', 'steelblue');
+  }  
 
 let data = await loadData();
 let commits = processCommits(data);

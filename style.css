@@ -388,4 +388,13 @@ h6 {
   #chart circle {
     fill: steelblue;
   }
-  
+
+#chart .domain,
+#chart .tick line {
+  stroke: currentColor;
+}
+
+#chart .tick text {
+  fill: currentColor;
+  font-size: 12px;
+}
