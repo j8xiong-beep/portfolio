@@ -174,7 +174,7 @@ function updateTooltipPosition(event) {
   
     // Y scale: time of day
     const yScale = d3
-      .scaleSqrt()
+      .scaleLinear()
       .domain([0, 24])
       .range([usableArea.top, usableArea.bottom]);
   
@@ -225,7 +225,7 @@ gridlines.call(
     );
 
     const rScale = d3
-      .scaleLinear()
+      .scaleSqrt()
       .domain([minLines, maxLines])
       .range([2, 30]);
     
