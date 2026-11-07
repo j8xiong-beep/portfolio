@@ -217,30 +217,49 @@ gridlines.call(
       .attr('transform', `translate(${usableArea.left}, 0)`)
       .call(yAxis);
   
+  
+    // Radius scale
+    const [minLines, maxLines] = d3.extent(
+      commits,
+      d => d.totalLines
+    );
+
+    const rScale = d3
+      .scaleLinear()
+      .domain([minLines, maxLines])
+      .range([2, 30]);
+
+
     // Create dots group
     const dots = svg
       .append('g')
       .attr('class', 'dots');
-  
+
+
     // Draw circles for commits
     dots
-      .selectAll('circle')
-      .data(commits)
-      .join('circle')
-      .attr('cx', d => xScale(d.datetime))
-      .attr('cy', d => yScale(d.hourFrac))
-      .attr('r', 5)
-      .attr('fill', 'steelblue')
-
+    .selectAll('circle')
+    .data(commits)
+    .join('circle')
+    .attr('cx', d => xScale(d.datetime))
+    .attr('cy', d => yScale(d.hourFrac))
+    .attr('r', d => rScale(d.totalLines))
+    .attr('fill', 'steelblue')
+    .style('fill-opacity', 0.7)
     .on('mouseenter', (event, commit) => {
+      d3.select(event.currentTarget)
+        .style('fill-opacity', 1);
+
       renderTooltipContent(commit);
       updateTooltipVisibility(true);
       updateTooltipPosition(event);
-    })
-    .on('mouseleave', () => {
-      updateTooltipVisibility(false);
-    });
+})
+.on('mouseleave', (event) => {
+  d3.select(event.currentTarget)
+    .style('fill-opacity', 0.7);
 
+  updateTooltipVisibility(false);
+});
   }  
 
 let data = await loadData();
