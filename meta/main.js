@@ -135,7 +135,7 @@ function updateTooltipPosition(event) {
 }
 
 
-function createBrushSelector(svg, xScale, yScale) {
+function createBrushSelector(svg, xScale, yScale, commits) {
 
   function isCommitSelected(selection, commit) {
     if (!selection) {
@@ -151,6 +151,21 @@ function createBrushSelector(svg, xScale, yScale) {
            y >= y0 && y <= y1;
   }
 
+
+  function renderSelectionCount(selection) {
+    const selectedCommits = selection
+      ? commits.filter(d => isCommitSelected(selection, d))
+      : [];
+  
+    const countElement = document.querySelector('#selection-count');
+  
+    countElement.textContent =
+      `${selectedCommits.length || 'No'} commits selected`;
+  
+    return selectedCommits;
+  }
+  
+
   function brushed(event) {
     const selection = event.selection;
 
@@ -158,6 +173,8 @@ function createBrushSelector(svg, xScale, yScale) {
       .classed('selected', d =>
         isCommitSelected(selection, d)
       );
+
+    renderSelectionCount(selection);
   }
 
   svg.call(
@@ -299,7 +316,7 @@ gridlines.call(
 
   updateTooltipVisibility(false);
 });
-  createBrushSelector(svg, xScale, yScale);
+  createBrushSelector(svg, xScale, yScale, commits);
 }  
 
 let data = await loadData();
