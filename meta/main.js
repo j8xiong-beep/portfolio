@@ -127,6 +127,13 @@ function updateTooltipVisibility(isVisible) {
   tooltip.hidden = !isVisible;
 }
 
+function updateTooltipPosition(event) {
+  const tooltip = document.getElementById('commit-tooltip');
+
+  tooltip.style.left = `${event.clientX}px`;
+  tooltip.style.top = `${event.clientY}px`;
+}
+
   function renderScatterPlot(data, commits) {
     // Chart dimensions
     const width = 1000;
@@ -224,9 +231,11 @@ gridlines.call(
       .attr('cy', d => yScale(d.hourFrac))
       .attr('r', 5)
       .attr('fill', 'steelblue')
+
     .on('mouseenter', (event, commit) => {
       renderTooltipContent(commit);
       updateTooltipVisibility(true);
+      updateTooltipPosition(event);
     })
     .on('mouseleave', () => {
       updateTooltipVisibility(false);
