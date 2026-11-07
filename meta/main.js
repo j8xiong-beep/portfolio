@@ -99,6 +99,29 @@ function renderCommitInfo(data, commits) {
   }
 
 
+  function renderTooltipContent(commit) {
+    const link = document.getElementById('commit-link');
+    const date = document.getElementById('commit-date');
+    const time = document.getElementById('commit-time');
+    const author = document.getElementById('commit-author');
+    const lines = document.getElementById('commit-lines');
+  
+    if (!commit || Object.keys(commit).length === 0) {
+      return;
+    }
+  
+    link.href = commit.url;
+    link.textContent = commit.id;
+  
+    date.textContent = commit.datetime.toLocaleString('en', {
+      dateStyle: 'full',
+    });
+  
+    time.textContent = commit.time;
+    author.textContent = commit.author;
+    lines.textContent = commit.totalLines;
+  }
+  
   function renderScatterPlot(data, commits) {
     // Chart dimensions
     const width = 1000;
@@ -195,7 +218,14 @@ gridlines.call(
       .attr('cx', d => xScale(d.datetime))
       .attr('cy', d => yScale(d.hourFrac))
       .attr('r', 5)
-      .attr('fill', 'steelblue');
+      .attr('fill', 'steelblue')
+      .on('mouseenter', (event, commit) => {
+        renderTooltipContent(commit);
+    })
+    .on('mouseleave', () => {
+  // Step 3.1: Tooltip remains visible for now.
+});
+
   }  
 
 let data = await loadData();

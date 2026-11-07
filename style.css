@@ -407,4 +407,58 @@ h6 {
   #chart .gridlines .domain {
     display: none;
   }
+
+dl.info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5em 1em;
+    align-items: baseline;
+  }
+  
+  dl.info dt {
+    font-weight: 600;
+    color: #90776d;
+  }
+  
+  dl.info dd {
+    margin: 0;
+  }
+  
+  .tooltip {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    z-index: 1000;
+  
+    padding: 1rem 1.25rem;
+  
+    background-color: rgba(36, 36, 36, 0.95);
+    color: white;
+  
+    border: 1px solid rgba(144, 119, 109, 0.5);
+    border-radius: 10px;
+  
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  
+    backdrop-filter: blur(10px);
+  }
+  
+  .tooltip a {
+    color: #8ab4f8;
+    text-decoration: none;
+  }
+  
+  .tooltip a:hover {
+    text-decoration: underline;
+  }
+  
+  #chart circle {
+    transition: transform 200ms;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  
+  #chart circle:hover {
+    transform: scale(1.5);
+  }
   
