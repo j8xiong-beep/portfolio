@@ -135,10 +135,38 @@ function updateTooltipPosition(event) {
 }
 
 
-function createBrushSelector(svg) {
-  svg.call(d3.brush());
+function createBrushSelector(svg, xScale, yScale) {
+
+  function isCommitSelected(selection, commit) {
+    if (!selection) {
+      return false;
+    }
+
+    const [[x0, y0], [x1, y1]] = selection;
+
+    const x = xScale(commit.datetime);
+    const y = yScale(commit.hourFrac);
+
+    return x >= x0 && x <= x1 &&
+           y >= y0 && y <= y1;
+  }
+
+  function brushed(event) {
+    const selection = event.selection;
+
+    svg.selectAll('.dots circle')
+      .classed('selected', d =>
+        isCommitSelected(selection, d)
+      );
+  }
+
+  svg.call(
+    d3.brush().on('start brush end', brushed)
+  );
+
   svg.selectAll('.dots, .overlay ~ *').raise();
 }
+
 
   function renderScatterPlot(data, commits) {
     // Chart dimensions
@@ -271,7 +299,7 @@ gridlines.call(
 
   updateTooltipVisibility(false);
 });
-  createBrushSelector(svg);
+  createBrushSelector(svg, xScale, yScale);
 }  
 
 let data = await loadData();
