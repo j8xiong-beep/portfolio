@@ -146,7 +146,7 @@ function renderCommitInfo(data, commits) {
     // Create axes
     const xAxis = d3
       .axisBottom(xScale)
-      .ticks(d3.timeDay.every(2))
+      .ticks(d3.timeDay.every(3))
       .tickFormat(d3.timeFormat('%a %d'));
   
     const yAxis = d3
@@ -155,6 +155,19 @@ function renderCommitInfo(data, commits) {
         d => String(d % 24).padStart(2, '0') + ':00'
       );
   
+    
+  // Step 2.3: Add horizontal grid lines
+  const gridlines = svg
+  .append('g')
+  .attr('class', 'gridlines')
+  .attr('transform', `translate(${usableArea.left}, 0)`);
+
+gridlines.call(
+  d3.axisLeft(yScale)
+    .tickFormat('')
+    .tickSize(-usableArea.width)
+);
+
     // Add X axis
     svg
       .append('g')

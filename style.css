@@ -398,3 +398,13 @@ h6 {
   fill: currentColor;
   font-size: 12px;
 }
+
+#chart .gridlines line {
+    stroke: currentColor;
+    stroke-opacity: 0.12;
+  }
+  
+  #chart .gridlines .domain {
+    display: none;
+  }
+  
