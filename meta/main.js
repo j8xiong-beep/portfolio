@@ -44,7 +44,64 @@ function processCommits(data) {
     });
 }
 
-let data = await loadData();
-let commits = processCommits(data);
 
-console.log(commits);
+function renderCommitInfo(data, commits) {
+    const container = d3.select('#stats');
+    container.selectAll('*').remove();
+  
+    const dl = container
+      .append('dl')
+      .attr('class', 'stats');
+  
+    dl.append('dt')
+      .html('Total <abbr title="Lines of code">LOC</abbr>');
+    dl.append('dd')
+      .text(data.length);
+  
+    dl.append('dt')
+      .text('Total commits');
+    dl.append('dd')
+      .text(commits.length);
+
+    const totalFiles = d3.group(data, d => d.file).size;
+  
+    dl.append('dt')
+      .text('Files');
+    dl.append('dd')
+      .text(totalFiles);
+  
+    const maxDepth = d3.max(data, d => d.depth);
+  
+    dl.append('dt')
+      .text('Max depth');
+    dl.append('dd')
+      .text(maxDepth);
+  
+    const longestLine = d3.max(data, d => d.length);
+  
+    dl.append('dt')
+      .text('Longest line');
+    dl.append('dd')
+      .text(longestLine);
+  
+    const fileLengths = d3.rollups(
+      data,
+      v => d3.max(v, d => d.line),
+      d => d.file
+    );
+  
+    const maxFileLength = d3.max(fileLengths, d => d[1]);
+  
+    dl.append('dt')
+      .text('Max file length');
+    dl.append('dd')
+      .text(maxFileLength);
+  }
+  
+  let data = await loadData();
+  let commits = processCommits(data);
+  
+  renderCommitInfo(data, commits);
+  
+  console.log(commits);
+  
