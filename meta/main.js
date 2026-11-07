@@ -164,8 +164,43 @@ function createBrushSelector(svg, xScale, yScale, commits) {
   
     return selectedCommits;
   }
-  
 
+
+  function renderLanguageBreakdown(selection) {
+    const selectedCommits = selection
+      ? commits.filter(d => isCommitSelected(selection, d))
+      : [];
+  
+    const container = document.getElementById('language-breakdown');
+  
+    if (selectedCommits.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+  
+    const requiredCommits = selectedCommits;
+    const lines = requiredCommits.flatMap(d => d.lines);
+  
+    const breakdown = d3.rollup(
+      lines,
+      v => v.length,
+      d => d.type
+    );
+  
+    container.innerHTML = '';
+  
+    for (const [language, count] of breakdown) {
+      const proportion = count / lines.length;
+      const formatted = d3.format('.1%')(proportion);
+  
+      container.innerHTML += `
+        <dt>${language}</dt>
+        <dd>${count} lines (${formatted})</dd>
+      `;
+    }
+  }
+  
+  
   function brushed(event) {
     const selection = event.selection;
 
@@ -174,8 +209,10 @@ function createBrushSelector(svg, xScale, yScale, commits) {
         isCommitSelected(selection, d)
       );
 
-    renderSelectionCount(selection);
+      renderSelectionCount(selection);
+      renderLanguageBreakdown(selection);
   }
+
 
   svg.call(
     d3.brush().on('start brush end', brushed)
