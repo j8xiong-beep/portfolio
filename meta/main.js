@@ -174,7 +174,7 @@ function updateTooltipPosition(event) {
   
     // Y scale: time of day
     const yScale = d3
-      .scaleLinear()
+      .scaleSqrt()
       .domain([0, 24])
       .range([usableArea.top, usableArea.bottom]);
   
