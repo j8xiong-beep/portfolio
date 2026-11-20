@@ -498,12 +498,13 @@ function updateFileDisplay(filteredCommits) {
     .groups(lines, (d) => d.file)
     .map(([name, lines]) => {
       return { name, lines };
-    });
+    })
+    .sort((a, b) => b.lines.length - a.lines.length);
 
   // Create file elements
   let filesContainer = d3
     .select('#files')
-    .selectAll('div')
+    .selectAll(':scope > div')
     .data(files, (d) => d.name)
     .join(
       (enter) =>
@@ -511,7 +512,8 @@ function updateFileDisplay(filteredCommits) {
           div.append('dt').append('code');
           div.append('dd');
         })
-    );
+    )
+    .order();
 
   // Update file names and line counts
   filesContainer
