@@ -1,4 +1,5 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
 
 async function loadData() {
   const data = await d3.csv('loc.csv', (row) => ({
@@ -41,7 +42,8 @@ function processCommits(data) {
       });
 
       return ret;
-    });
+    })
+    .sort((a, b) => a.datetime - b.datetime);
 }
 
 
@@ -574,3 +576,46 @@ d3.select('#scatter-story')
       Then I looked over all I had made, and I saw that it was very good.
     `
   );
+
+function onStepEnter(response) {
+  // Get the commit corresponding to this story step
+  const commit = response.element.__data__;
+
+  // Update the selected time
+  commitMaxTime = commit.datetime;
+  commitProgress = timeScale(commitMaxTime);
+
+  // Synchronize the slider
+  const slider = document.querySelector('#commit-progress');
+  const timeElement = document.querySelector('#commit-time');
+
+  slider.value = commitProgress;
+  timeElement.textContent = commitMaxTime.toLocaleString();
+
+  // Filter commits up to this date
+  filteredCommits = commits.filter(
+    (d) => d.datetime <= commitMaxTime
+  );
+
+  // Update scatterplot
+  updateScatterPlot(data, filteredCommits);
+
+  // Update summary statistics
+  const filteredData = filteredCommits.flatMap(
+    (d) => d.lines
+  );
+
+  renderCommitInfo(filteredData, filteredCommits);
+
+  // Update file visualization
+  updateFileDisplay(filteredCommits);
+}
+
+const scroller = scrollama();
+
+scroller
+  .setup({
+    container: '#scrolly-1',
+    step: '#scrolly-1 .step',
+  })
+  .onStepEnter(onStepEnter);
