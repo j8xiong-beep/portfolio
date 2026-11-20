@@ -484,7 +484,45 @@ function onTimeSliderChange() {
   );
 
   renderCommitInfo(filteredData, filteredCommits);
+
+  // Update file visualization
+  updateFileDisplay(filteredCommits);
 }
+
+function updateFileDisplay(filteredCommits) {
+  // Get all lines from filtered commits
+  let lines = filteredCommits.flatMap((d) => d.lines);
+
+  // Group lines by file
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+    });
+
+  // Create file elements
+  let filesContainer = d3
+    .select('#files')
+    .selectAll('div')
+    .data(files, (d) => d.name)
+    .join(
+      (enter) =>
+        enter.append('div').call((div) => {
+          div.append('dt').append('code');
+          div.append('dd');
+        })
+    );
+
+  // Update file names and line counts
+  filesContainer
+    .select('dt > code')
+    .text((d) => d.name);
+
+  filesContainer
+    .select('dd')
+    .text((d) => `${d.lines.length} lines`);
+}
+
 const slider = document.querySelector('#commit-progress');
 
 slider.addEventListener('input', onTimeSliderChange);

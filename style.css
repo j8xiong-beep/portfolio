@@ -505,3 +505,24 @@ dl.info {
 #commit-time {
   margin-left: auto;
 }
+#files {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 0.5em;
+}
+
+#files > div {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: baseline;
+}
+
+#files dt {
+  grid-column: 1;
+}
+
+#files dd {
+  grid-column: 2;
+  margin: 0;
+}
