@@ -519,8 +519,19 @@ function updateFileDisplay(filteredCommits) {
     .text((d) => d.name);
 
   filesContainer
-    .select('dd')
+    .select('dt')
+    .selectAll('small')
+    .data((d) => [d])
+    .join('small')
     .text((d) => `${d.lines.length} lines`);
+
+  // Create one dot for each line of code
+  filesContainer
+    .select('dd')
+    .selectAll('div')
+    .data((d) => d.lines)
+    .join('div')
+    .attr('class', 'loc');
 }
 
 const slider = document.querySelector('#commit-progress');
