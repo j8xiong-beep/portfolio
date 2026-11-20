@@ -33,16 +33,21 @@
     <time id="commit-time"></time>
   </div>
 
-  <!-- File visualization -->
-  <dl id="files"></dl>
-
   <div id="stats"></div>
 
-  <h2>Commits by time of day</h2>
-  <div id="chart"></div>
+  <div id="scrolly-1">
+    <div id="scatter-story">
+      Some filler text here
+    </div>
 
-  <p id="selection-count">No commits selected</p>
-  <dl id="language-breakdown" class="stats"></dl>
+    <div id="scatter-plot">
+      <h2>Commits by time of day</h2>
+      <div id="chart"></div>
+
+      <p id="selection-count">No commits selected</p>
+      <dl id="language-breakdown" class="stats"></dl>
+    </div>
+  </div>
 
 
   <dl id="commit-tooltip" class="info tooltip" hidden>
@@ -63,6 +68,9 @@
   <dt>Lines edited</dt>
   <dd id="commit-lines"></dd>
 </dl>
+
+  <!-- File visualization -->
+  <dl id="files"></dl>
 
 </body>
 </html>
