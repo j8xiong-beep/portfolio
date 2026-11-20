@@ -455,9 +455,13 @@ dl.info {
   }
   
   #chart circle {
-    transition: transform 200ms;
+    transition: all 200ms;
     transform-origin: center;
     transform-box: fill-box;
+
+    @starting-style {
+      r: 0;
+    }
   }
   
   #chart circle:hover {
