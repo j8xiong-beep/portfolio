@@ -572,3 +572,11 @@ dl.info {
   bottom: auto;
   height: 50vh;
 }
+
+#scatter-story .step {
+  padding: 1.5em;
+  margin-bottom: 2em;
+  min-height: 65vh;
+  box-sizing: border-box;
+  line-height: 1.8;
+}
