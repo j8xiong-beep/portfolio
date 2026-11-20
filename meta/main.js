@@ -489,6 +489,8 @@ function onTimeSliderChange() {
   updateFileDisplay(filteredCommits);
 }
 
+let colors = d3.scaleOrdinal(d3.schemeTableau10);
+
 function updateFileDisplay(filteredCommits) {
   // Get all lines from filtered commits
   let lines = filteredCommits.flatMap((d) => d.lines);
@@ -533,7 +535,8 @@ function updateFileDisplay(filteredCommits) {
     .selectAll('div')
     .data((d) => d.lines)
     .join('div')
-    .attr('class', 'loc');
+    .attr('class', 'loc')
+    .attr('style', (d) => `--color: ${colors(d.type)}`);
 }
 
 const slider = document.querySelector('#commit-progress');
