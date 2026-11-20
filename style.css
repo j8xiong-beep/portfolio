@@ -486,3 +486,18 @@ dl.info {
   #chart circle.selected {
     fill: #ff6b6b;
   }
+
+.filter-container {
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+#commit-progress {
+  flex: 1;
+}
+
+#commit-time {
+  margin-left: auto;
+}

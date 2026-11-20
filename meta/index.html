@@ -16,6 +16,23 @@
   </p>
 
   <h2>Summary</h2>
+
+  <div class="filter-container">
+    <label for="commit-progress">
+      Show commits until:
+    </label>
+
+    <input
+      type="range"
+      id="commit-progress"
+      min="0"
+      max="100"
+      value="100"
+    />
+
+    <time id="commit-time"></time>
+  </div>
+
   <div id="stats"></div>
 
   <h2>Commits by time of day</h2>
